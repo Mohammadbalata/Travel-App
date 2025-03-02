@@ -16,8 +16,8 @@ return new class extends Migration
             $table->string('name');
             $table->text('description');
             $table->string('region')->nullable(); 
-            $table->decimal('lat', 10, 8);
-            $table->decimal('lng', 11, 8);
+            $table->string('lat');
+            $table->string('lng');
             $table->json('interests')->nullable();
             $table->string('image_url')->nullable();
             $table->timestamps();

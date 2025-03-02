@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\Auth\SocialLoginController;
+use App\Http\Controllers\Front\DestinationsController;
+use App\Http\Controllers\Front\HomeController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -8,9 +10,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/home', function () {
-    return view('home');
-})->middleware(['auth', 'verified'])->name('home');
+Route::get('/home',[HomeController::class,'index'])->middleware(['auth', 'verified'])->name('home');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -18,10 +18,19 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-
 Route::get('auth/{provider}/redirect', [SocialLoginController::class, 'redirect'])
     ->name('auth.socilaite.redirect');
 Route::get('auth/{provider}/callback', [SocialLoginController::class, 'callback'])
     ->name('auth.socilaite.callback');
+
+Route::get('/destinations/{destination}',[DestinationsController::class,'show'])
+    ->name('destinations.show');
+
+
+
+
+
+
+
 
 require __DIR__.'/auth.php';
