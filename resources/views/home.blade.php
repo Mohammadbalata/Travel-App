@@ -16,22 +16,39 @@
                         <div class="row">
                             <div class="row">
                                 @if(! isset($destinations['error']) )
-                                    @foreach ($destinations as $destination)
-                                        <div class="col-sm-6 mb-3 mb-sm-0">
-                                            <div class="card">
-                                                <div class="card-body">
-                                                    <h5 class="card-title">{{$destination['name']}}</h5>
-                                                    <p class="card-text">{{$destination['display_name']}}</p>
-                                                    <a href="{{route('destinations.show', $destination['place_id'])}}" class="btn btn-primary">Show Details</a>
-                                                </div>
-                                                {{-- <!--  <select name="" id="">
-                                                    @foreach($itineraries as $itinerary)
-                                                    <option value="{{ $itinerary->id  }}">{{$itinerary->name }}</option>
+                                @foreach ($destinations as $destination)
+                                <div class="col-sm-6 mb-3 mb-sm-0">
+                                    <div class="card">
+                                        <div class="flex flex-col gap-2 card-body ">
+                                            <h5 class="card-title">{{$destination['name']}}</h5>
+                                            <p class="card-text">{{$destination['display_name']}}</p>
+                                            @auth
+                                            <!-- Dropdown to Select Itinerary -->
+
+                                            <form class="flex flex-row justify-center gap-3" action="{{ route('destination.store') }}" method="POST">
+                                                @csrf
+                                                <input type="hidden" name="name" value="{{ $destination['name'] }}">
+                                                <input type="hidden" name="lat" value="{{ $destination['lat'] }}">
+                                                <input type="hidden" name="lon" value="{{ $destination['lon'] }}">
+                                                <select required name="itinerary_id" class="form-select">
+                                                    <option value="">Select an Itinerary</option>
+                                                    @foreach ($itineraries as $itinerary)
+                                                    <option value="{{ $itinerary->id }}">{{ $itinerary->name }}</option>
                                                     @endforeach
-                                                </select> --> --}} 
-                                            </div>
+                                                </select>
+                                                <!-- Button to Add Destination -->
+                                                <button type="submit" class="btn btn-success text-sm ">
+                                                    Add
+                                                </button>
+                                            </form>
+
+                                            @endauth
+
                                         </div>
-                                    @endforeach
+                                    </div>
+                                </div>
+                                @endforeach
+
                                 @endif
                             </div>
                         </div>

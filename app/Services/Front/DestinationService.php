@@ -16,9 +16,7 @@ class DestinationService
         protected OpenStreetMapService $openStreetMapService,
         protected OpenStreetMapAdapter $openStreetMapAdapter,
         protected DestinationRepository $destinationRepository,
-    ) {
-        
-    }
+    ) {}
     public function showDestination($id)
     {
         $destinationResponse = $this->openStreetMapService->getDestinationDetails($id);

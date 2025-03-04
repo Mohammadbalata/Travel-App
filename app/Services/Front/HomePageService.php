@@ -18,12 +18,12 @@ class HomePageService
     {
         $user = $request->user();
         $filter = request()->input('filter');
-        if(!$filter && $user){
+        if (!$filter && $user) {
             $filter = $this->userRepository->getUserTravelPreferences($user);
         }
 
-        $destinations = $this->openStreetMapService->searchDestination($filter) ;
-        
-        return view('home', compact('destinations'));
+        $destinations = $this->openStreetMapService->searchDestination($filter);
+        $itineraries = $this->itineraryRepository->getUserItineraries($user);
+        return view('home', compact('destinations','itineraries'));
     }
 }

@@ -57,6 +57,10 @@ class User extends Authenticatable
         return $this->hasMany(Review::class);
     }
 
+    public function itineraries(){
+        return $this->hasMany(Itinerary::class);
+    }
+
     public function setProviderTokenAttribute($value)
     {
         $this->attributes['provider_token'] = Crypt::encryptString($value);
