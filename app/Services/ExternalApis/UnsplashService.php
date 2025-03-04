@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services;
+namespace App\Services\ExternalApis;
 
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
@@ -15,7 +15,7 @@ class UnsplashService
         $this->apiKey = config('services.unsplash.api_key');
     }
 
-    public function fetchDestinationImages(string $query, int $perPage = 10)
+    public function fetchDestinationImages($query, int $perPage = 10)
     {
         return $this->makeRequest([
             'query' => $query,

@@ -12,31 +12,28 @@
             <div class="overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 grid">
                     <div class="container my-5">
-                        <h1 class="text-center mb-4">Explore Destinations</h1>
+                        <h1 class="text-center mb-4"></h1>
                         <div class="row">
-                            @foreach ($destinations as $destination)
-                            <div class="col-md-4 mb-4">
-                                <div class="card h-100">
-                                    <!-- Destination Image -->
-                                    <img src="{{ $destination->image_url }}" class="card-img-top" alt="{{ $destination->name }}" style="height: 200px; object-fit: cover;">
-
-                                    <!-- Card Body -->
-                                    <div class="card-body">
-                                        <h5 class="card-title">{{ $destination->name }}</h5>
-                                        <p class="card-text">{{ Str::limit($destination->description, 100) }}</p>
-                                        <ul class="list-unstyled">
-                                            <li><strong>Region:</strong> {{ $destination->region }}</li>
-                                            <li><strong>Interests:</strong> {{ implode(', ', json_decode($destination->interests)) }}</li>
-                                        </ul>
-                                    </div>
-
-                                    <!-- Card Footer -->
-                                    <div class="card-footer bg-white">
-                                        <a href="{{ route('destinations.show',$destination) }}" class="btn btn-primary">View Details</a>
-                                    </div>
-                                </div>
+                            <div class="row">
+                                @if(! isset($destinations['error']) )
+                                    @foreach ($destinations as $destination)
+                                        <div class="col-sm-6 mb-3 mb-sm-0">
+                                            <div class="card">
+                                                <div class="card-body">
+                                                    <h5 class="card-title">{{$destination['name']}}</h5>
+                                                    <p class="card-text">{{$destination['display_name']}}</p>
+                                                    <a href="{{route('destinations.show', $destination['place_id'])}}" class="btn btn-primary">Show Details</a>
+                                                </div>
+                                                {{-- <!--  <select name="" id="">
+                                                    @foreach($itineraries as $itinerary)
+                                                    <option value="{{ $itinerary->id  }}">{{$itinerary->name }}</option>
+                                                    @endforeach
+                                                </select> --> --}} 
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                @endif
                             </div>
-                            @endforeach
                         </div>
                     </div>
                 </div>

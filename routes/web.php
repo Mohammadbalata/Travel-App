@@ -3,14 +3,13 @@
 use App\Http\Controllers\Auth\SocialLoginController;
 use App\Http\Controllers\Front\DestinationsController;
 use App\Http\Controllers\Front\HomeController;
+use App\Http\Controllers\Front\ItitinerariesController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-});
 
-Route::get('/home',[HomeController::class,'index'])->middleware(['auth', 'verified'])->name('home');
+
+Route::get('/',[HomeController::class,'index'])->name('home');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -25,6 +24,10 @@ Route::get('auth/{provider}/callback', [SocialLoginController::class, 'callback'
 
 Route::get('/destinations/{destination}',[DestinationsController::class,'show'])
     ->name('destinations.show');
+
+Route::resource('/itineraries',ItitinerariesController::class);
+       
+    
 
 
 

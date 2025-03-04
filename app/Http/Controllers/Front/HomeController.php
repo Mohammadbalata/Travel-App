@@ -3,15 +3,15 @@
 namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\Controller;
-use App\Models\Destination;
+use App\Services\Front\HomePageService;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
+    public function __construct(protected HomePageService $homePageService){
+    }
     
     public function index(Request $request){
-        $filters = request()->input('filter');
-        $destinations = Destination::filter($filters)->get();
-        return view('home',compact('destinations'));
+        return $this->homePageService->index($request);
     }
 }

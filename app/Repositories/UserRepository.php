@@ -10,7 +10,8 @@ use Illuminate\Support\Str;
 
 class UserRepository
 {
-    public function createUser($userData,$provider){
+    public function createUser($userData, $provider)
+    {
         return User::create([
             'name' => $userData->name,
             'email' => $userData->email,
@@ -21,10 +22,22 @@ class UserRepository
         ]);
     }
 
-    public function getUserByProvider($userData,$provider){
+    public function getUserByProvider($userData, $provider)
+    {
         return User::where([
             'provider' => $provider,
             'provider_id' => $userData->id
         ])->first();
+    }
+
+    public function getUserTravelPreferences($user)
+    {
+        $preferences = json_decode($user->travel_preferences, true);
+
+        if (empty($preferences)) {
+            return '';
+        }
+
+        return $preferences[array_rand($preferences)];
     }
 }

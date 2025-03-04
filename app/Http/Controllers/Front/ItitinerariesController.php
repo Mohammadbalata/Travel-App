@@ -6,12 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Services\Front\DestinationService;
 use Illuminate\Http\Request;
 
-class DestinationsController extends Controller
+class ItitinerariesController extends Controller
 {
 
-    public function __construct(protected DestinationService $destinationService)
-    {
-    }
+    
 
 
     /**
@@ -43,7 +41,7 @@ class DestinationsController extends Controller
      */
     public function show($id)
     {
-        return $this->destinationService->showDestination($id);
+       
     }
 
     /**

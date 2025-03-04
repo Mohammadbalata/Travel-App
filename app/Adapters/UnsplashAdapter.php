@@ -1,23 +1,21 @@
 <?php
 namespace App\Adapters;
 
-use App\Services\UnsplashService;
+use App\Services\ExternalApis\UnsplashService;
 
 class UnsplashAdapter
 {
-    protected UnsplashService $unsplashService;
 
-    public function __construct(UnsplashService $unsplashService)
+    public function __construct(protected UnsplashService $unsplashService)
     {
-        $this->unsplashService = $unsplashService;
     }
 
-    public function getImageUrls(string $query, int $count = 10): array
+    public function getImageUrls($data): array
     {
-        $response = $this->unsplashService->fetchDestinationImages($query, $count);
-        if (!isset($response['results'])) {
+        
+        if (!isset($data['results'])) {
             return [];
         }
-        return array_map(fn($image) => $image['urls']['regular'], $response['results']);
+        return array_map(fn($image) => $image['urls']['regular'], $data['results']);
     }
 }

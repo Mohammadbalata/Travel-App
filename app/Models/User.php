@@ -22,6 +22,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'travel_preferences',
         'provider',
         'provider_id',
         'provider_token',
