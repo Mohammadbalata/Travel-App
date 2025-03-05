@@ -27,6 +27,7 @@ class ItineraryService
         $data = $request->all();
         $user = Auth::user();
         $data['user_id'] = $user->id;
+        
         $itinerary = $this->itineraryRepository->createItinerary($data);
         return redirect()->route('itineraries.index')->with('success','Itinerary added successfully');
     }

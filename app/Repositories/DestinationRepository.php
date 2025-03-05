@@ -17,5 +17,9 @@ class DestinationRepository
     public function getDestinationReviews($destination){
         return $destination->reviews()->with('user')->get();
     }
+
+    public function createDestination($data){
+        return Destination::create($data);
+    }
     
 }

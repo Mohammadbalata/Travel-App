@@ -6,7 +6,14 @@
             <button type="submit" class="btn btn-dark mx-2">Search</button>
         </form>
     </x-slot>
-
+    @if($errors->any())
+<div class="alert alert-danger">
+  <h2>Errors</h2>
+  @foreach($errors->all() as $error)
+  <li>{{$error}}</li>
+  @endforeach
+</div>
+@endif
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="overflow-hidden shadow-sm sm:rounded-lg">
@@ -25,11 +32,11 @@
                                             @auth
                                             <!-- Dropdown to Select Itinerary -->
 
-                                            <form class="flex flex-row justify-center gap-3" action="{{ route('destination.store') }}" method="POST">
+                                            <form class="flex flex-row justify-center gap-3" action="{{ route('destinations.store') }}" method="POST">
                                                 @csrf
                                                 <input type="hidden" name="name" value="{{ $destination['name'] }}">
                                                 <input type="hidden" name="lat" value="{{ $destination['lat'] }}">
-                                                <input type="hidden" name="lon" value="{{ $destination['lon'] }}">
+                                                <input type="hidden" name="lng" value="{{ $destination['lon'] }}">
                                                 <select required name="itinerary_id" class="form-select">
                                                     <option value="">Select an Itinerary</option>
                                                     @foreach ($itineraries as $itinerary)

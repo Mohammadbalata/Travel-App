@@ -3,8 +3,9 @@
 namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Front\DestinationRequest;
 use App\Services\Front\DestinationService;
-use Illuminate\Http\Request;
+
 
 class DestinationsController extends Controller
 {
@@ -33,10 +34,10 @@ class DestinationsController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(DestinationRequest $request)
+    
     {
-        dd($request->all());
-
+        return $this->destinationService->store($request);
     }
 
     /**
@@ -44,7 +45,7 @@ class DestinationsController extends Controller
      */
     public function show($id)
     {
-        return $this->destinationService->showDestination($id);
+        return $this->destinationService->show($id);
     }
 
     /**
@@ -58,7 +59,7 @@ class DestinationsController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(DestinationRequest $request, string $id)
     {
         //
     }

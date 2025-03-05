@@ -29,4 +29,8 @@ class Itinerary extends Model
     {
         return $this->start_date->diffInDays($this->end_date);
     }
+
+    public function destinations(){
+        return $this->hasMany(Destination::class);
+    }
 }

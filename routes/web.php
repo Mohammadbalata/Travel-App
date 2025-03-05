@@ -18,7 +18,7 @@ Route::middleware('auth')->group(function () {
     
     Route::resource('/itineraries', ItinerariesController::class);
     
-    Route::post('/destination', [DestinationsController::class , 'store'])->name('destination.store');
+    Route::post('/destinations', [DestinationsController::class , 'store'])->name('destinations.store');
 
 });
 

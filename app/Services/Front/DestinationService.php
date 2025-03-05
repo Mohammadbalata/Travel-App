@@ -4,6 +4,7 @@ namespace App\Services\Front;
 
 use App\Adapters\OpenStreetMapAdapter;
 use App\Adapters\UnsplashAdapter;
+use App\Models\Destination;
 use App\Repositories\DestinationRepository;
 use App\Services\ExternalApis\OpenStreetMapService;
 use App\Services\ExternalApis\UnsplashService;
@@ -17,7 +18,7 @@ class DestinationService
         protected OpenStreetMapAdapter $openStreetMapAdapter,
         protected DestinationRepository $destinationRepository,
     ) {}
-    public function showDestination($id)
+    public function show($id)
     {
         $destinationResponse = $this->openStreetMapService->getDestinationDetails($id);
         $destination = $this->openStreetMapAdapter->getFormattedDestinationDetails($destinationResponse);
@@ -26,5 +27,10 @@ class DestinationService
         $destinationImages = $this->unsplashAdapter->getImageUrls($destinationImagesResponse);
 
         return view('Front.destination.show', compact('destination', 'destinationImages'));
+    }
+
+    public function store($request){
+        $destination = $this->destinationRepository->createDestination($request->all());
+        return redirect()->route('home')->with('success', 'Destination added successfully');
     }
 }
