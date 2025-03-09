@@ -17,11 +17,6 @@ class OpenStreetMapService
         return $this->makeRequest('search', ['q' => $query]);
     }
 
-    public function getDestinationDetails($placeId): array
-    {
-        return $this->makeRequest('details', ['place_id' => $placeId]);
-    }
-
     protected function makeRequest(string $endpoint, array $params): array
     {
         try {

@@ -2,6 +2,7 @@
 
 namespace App\Services\ExternalApis;
 
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 
@@ -17,22 +18,33 @@ class UnsplashService
 
     public function fetchDestinationImages($query, int $perPage = 10)
     {
-        return $this->makeRequest([
+        $cacheKey = "forecast_{$query}";
+
+        if (Cache::has($cacheKey)) {
+            return Cache::get($cacheKey);
+        }
+        $response = $this->makeRequest([
             'query' => $query,
             'per_page' => $perPage,
             'orientation' => 'landscape',
         ]);
+
+        if ($response->successful()) {
+            $images = $response->json();
+            Cache::put($cacheKey, $images, now()->addHour());
+            return $images;
+        }
     }
 
     private function makeRequest(array $params)
     {
         $params['client_id'] = $this->apiKey;
-        
+
         try {
             $response = Http::get($this->baseUrl, $params);
-            
-            if ($response->successful()) {
-                return $response->json();
+
+            if ($response) {
+                return $response;
             }
 
             Log::error("Unsplash API error: " . $response->body());
@@ -42,5 +54,4 @@ class UnsplashService
             return ['error' => 'Service unavailable.'];
         }
     }
-    
 }

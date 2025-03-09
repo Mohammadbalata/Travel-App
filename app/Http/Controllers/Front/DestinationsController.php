@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Front\DestinationRequest;
+use App\Models\Destination;
 use App\Services\Front\DestinationService;
 
 
@@ -43,9 +44,9 @@ class DestinationsController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show($id)
+    public function show(Destination $destination)
     {
-        return $this->destinationService->show($id);
+        return $this->destinationService->show($destination);
     }
 
     /**
@@ -67,9 +68,10 @@ class DestinationsController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Destination $destination)
     {
-        //
+        return $this->destinationService->destroy($destination);
+
     }
 
 }

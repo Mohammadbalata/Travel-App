@@ -8,29 +8,33 @@ use App\Models\Destination;
 use App\Repositories\DestinationRepository;
 use App\Services\ExternalApis\OpenStreetMapService;
 use App\Services\ExternalApis\UnsplashService;
+use App\Services\ExternalApis\WeatherService;
+use Illuminate\Support\Facades\Auth;
 
 class DestinationService
 {
     public function __construct(
         protected UnsplashAdapter $unsplashAdapter,
         protected UnsplashService $unsplashService,
-        protected OpenStreetMapService $openStreetMapService,
-        protected OpenStreetMapAdapter $openStreetMapAdapter,
         protected DestinationRepository $destinationRepository,
+        protected WeatherService $weatherService,
     ) {}
-    public function show($id)
+    public function show($destination)
     {
-        $destinationResponse = $this->openStreetMapService->getDestinationDetails($id);
-        $destination = $this->openStreetMapAdapter->getFormattedDestinationDetails($destinationResponse);
-
-        $destinationImagesResponse = $this->unsplashService->fetchDestinationImages($destination['en_name']);
+        $forecastData = $this->weatherService->getForecastByCoordinates($destination->lat,$destination->lng);
+        $destinationImagesResponse = $this->unsplashService->fetchDestinationImages($destination->name);
         $destinationImages = $this->unsplashAdapter->getImageUrls($destinationImagesResponse);
 
-        return view('Front.destination.show', compact('destination', 'destinationImages'));
+        return view('Front.destination.show', compact('destination', 'destinationImages','forecastData'));
     }
 
     public function store($request){
         $destination = $this->destinationRepository->createDestination($request->all());
         return redirect()->route('home')->with('success', 'Destination added successfully');
+    }
+
+    public function destroy($destination){
+        $d = $this->destinationRepository->deleteDestination($destination);
+        return redirect()->route('itineraries.show',$destination->itinerary_id)->with('success', 'Destination Deleted successfully');
     }
 }

@@ -21,5 +21,9 @@ class DestinationRepository
     public function createDestination($data){
         return Destination::create($data);
     }
+
+    public function deleteDestination($destination){
+        return $destination->delete($destination);
+    }
     
 }

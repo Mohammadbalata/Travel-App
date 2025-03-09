@@ -26,11 +26,11 @@
             <tbody>
                 @forelse ($itineraries as $itinerary)
                 <tr>
-                    <td>{{ $itinerary->name }}</td>
+                    <td><a href="{{ route('itineraries.show',$itinerary)}}">{{ $itinerary->name }}</a></td>
                     <td>{{ $itinerary->start_date?->format('Y-m-d') }}</td>
                     <td>{{ $itinerary->end_date?->format('Y-m-d') }}</td>
                     <td>{{ $itinerary->duration }} days</td>
-                    <td>{{ $itinerary->budget }}</td>
+                    <td>{{ \App\Helpers\Currency::format( $itinerary->budget )}}</td>
                     <td>
                         <a href="{{route('itineraries.edit',$itinerary->id)}}" class="btn btn-sm btn-outline-success">Edit</a>
 

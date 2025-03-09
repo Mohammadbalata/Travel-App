@@ -67,6 +67,8 @@ return [
 
     'timezone' => 'UTC',
 
+    'currency' => 'EUR',
+
     /*
     |--------------------------------------------------------------------------
     | Application Locale Configuration

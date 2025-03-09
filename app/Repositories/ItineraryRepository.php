@@ -29,5 +29,9 @@ class ItineraryRepository
     public function deleteItinerary($itinerary){
         return $itinerary->delete();
     }
+
+    public function getItineraryDestinations($itinerary) {
+        return $itinerary->destinations()->get();
+    }
     
 }

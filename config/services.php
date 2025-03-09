@@ -52,8 +52,12 @@ return [
         'api_key' => env('UNSPLASH_API_KEY'),
     ],
 
-    'openweatherapi' => [
+    'openweathermap' => [
         'api_key' => env('OPENWEATHERMAP_API_KEY'),
+    ],
+
+    'exchangerates' => [
+        'api_key' => env('EXCHANGERATESAPI_KEY'),
     ],
 
 ];

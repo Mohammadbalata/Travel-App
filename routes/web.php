@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\SocialLoginController;
+use App\Http\Controllers\Currency\CurrencyConverterController;
 use App\Http\Controllers\Front\DestinationsController;
 use App\Http\Controllers\Front\HomeController;
 use App\Http\Controllers\Front\ItinerariesController;
@@ -18,13 +19,13 @@ Route::middleware('auth')->group(function () {
     
     Route::resource('/itineraries', ItinerariesController::class);
     
-    Route::post('/destinations', [DestinationsController::class , 'store'])->name('destinations.store');
+    Route::resource('/destinations', DestinationsController::class);
 
 });
 
 
-Route::get('/destinations/{destination}', [DestinationsController::class, 'show'])
-    ->name('destinations.show');
+Route::post('currency', [CurrencyConverterController::class, 'store'])
+        ->name('currency.store');
 
 
 Route::get('auth/{provider}/redirect', [SocialLoginController::class, 'redirect'])

@@ -52,4 +52,9 @@ class ItineraryService
         }
         return redirect()->route('itineraries.index')->with('success','Itinerary deleted successfully');
     }
+
+    public function show($itinerary){
+        $destinations = $this->itineraryRepository->getItineraryDestinations($itinerary);
+        return view('Front.itineraries.show',compact('itinerary','destinations'));
+    }
 }
