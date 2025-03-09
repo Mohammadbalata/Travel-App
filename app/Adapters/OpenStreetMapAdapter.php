@@ -13,7 +13,7 @@ class OpenStreetMapAdapter
 
     public function getFormattedDestinationDetails($data): array
     {
-
+        
         if (empty($data)) {
             return [];
         }

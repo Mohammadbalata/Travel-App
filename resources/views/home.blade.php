@@ -32,7 +32,7 @@
                                             @auth
                                             <!-- Dropdown to Select Itinerary -->
 
-                                            <form class="flex flex-row justify-center gap-3" action="{{ route('destinations.store') }}" method="POST">
+                                            <form class="flex flex-row justify-center gap-3" action="{{ route('destinations.store','') }}" method="POST">
                                                 @csrf
                                                 <input type="hidden" name="name" value="{{ $destination['name'] }}">
                                                 <input type="hidden" name="lat" value="{{ $destination['lat'] }}">

@@ -19,7 +19,7 @@ Route::middleware('auth')->group(function () {
     
     Route::resource('/itineraries', ItinerariesController::class);
     
-    Route::resource('/destinations', DestinationsController::class);
+    Route::resource('/itineraries/{itinerary}/destinations', DestinationsController::class);
 
 });
 

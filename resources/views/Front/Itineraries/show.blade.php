@@ -1,6 +1,6 @@
 <x-app-layout>
     <div class="container">
-        <h1 class="my-4">{{ $itinerary->name }}</h1>
+        <p class="my-4 text-2xl">{{ $itinerary->name }}</p>
         <!-- Social Sharing Buttons -->
         <div class="card mt-4">
             <div class="card-body">
@@ -25,10 +25,6 @@
                     <a href="https://wa.me/?text=Check out this itinerary: {{ $itinerary->name }} - {{ urlencode(url()->current()) }}" target="_blank" class="btn btn-success btn-sm">
                         <i class="fab fa-whatsapp"></i> WhatsApp
                     </a>
-                    <!-- Email -->
-                    <a href="mailto:?subject=Check out this itinerary&body=Check out this itinerary: {{ $itinerary->name }} - {{ urlencode(url()->current()) }}" class="btn btn-warning btn-sm">
-                        <i class="fas fa-envelope"></i> Email
-                    </a>
                 </div>
             </div>
         </div>
@@ -50,8 +46,8 @@
                 <ul class="list-group">
                     @forelse ($destinations as $destination)
                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                        <a href="{{ route('destinations.show',$destination)}}">{{ $destination->name }}</a>
-                        <form action="{{ route('destinations.destroy', $destination) }}" method="POST">
+                        <a href="{{ route('destinations.show',['itinerary' => $itinerary ,'destination' => $destination])}}">{{ $destination->name }}</a>
+                        <form action="{{ route('destinations.destroy',['itinerary' => $itinerary ,'destination' => $destination]) }}" method="POST">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-danger btn-sm">Delete</button>

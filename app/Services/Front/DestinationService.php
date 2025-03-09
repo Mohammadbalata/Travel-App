@@ -22,6 +22,7 @@ class DestinationService
     public function show($destination)
     {
         $forecastData = $this->weatherService->getForecastByCoordinates($destination->lat,$destination->lng);
+        
         $destinationImagesResponse = $this->unsplashService->fetchDestinationImages($destination->name);
         $destinationImages = $this->unsplashAdapter->getImageUrls($destinationImagesResponse);
 
@@ -34,7 +35,7 @@ class DestinationService
     }
 
     public function destroy($destination){
-        $d = $this->destinationRepository->deleteDestination($destination);
+        $this->destinationRepository->deleteDestination($destination);
         return redirect()->route('itineraries.show',$destination->itinerary_id)->with('success', 'Destination Deleted successfully');
     }
 }
