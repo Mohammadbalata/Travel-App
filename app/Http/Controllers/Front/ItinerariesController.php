@@ -69,4 +69,14 @@ class ItinerariesController extends Controller
         return $this->itineraryService->destroy($itinerary);
     }
 
+    public function collaborate(Itinerary $itinerary){
+        return $this->itineraryService->collaborate($itinerary);
+
+    }
+
+    public function leave(Itinerary $itinerary){
+        return $this->itineraryService->leave($itinerary);
+
+    }
+
 }

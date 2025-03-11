@@ -1,4 +1,4 @@
-<nav x-data="{ open: false }" class="bg-white border-b border-gray-100">
+<nav x-data="{ open: false, notificationsOpen: false }" class="bg-white border-b border-gray-100">
     <!-- Primary Navigation Menu -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
@@ -22,7 +22,20 @@
             @auth
             <!-- Settings Dropdown -->
             <div class="flex justify-center items-center gap-3 ">
-
+                <div>
+                    <form action="{{route('currency.store')}}" method="post">
+                        @csrf
+                        <select style="border: none;" name="currency_code" onchange="this.form.submit()">
+                            <option value="EUR" @selected('EUR'==session('currency_code'))>€ EURO</option>
+                            <option value="USD" @selected('USD'==session('currency_code'))>$ USD</option>
+                            <option value="ILS" @selected('ILS'==session('currency_code'))>$ ILS</option>
+                            <option value="JOD" @selected('JOD'==session('currency_code'))>₹ JOD</option>
+                            <option value="SAR" @selected('SAR'==session('currency_code'))>¥ SAR</option>
+                            <option value="QAR" @selected('QAR'==session('currency_code'))>৳ QAR</option>
+                        </select>
+                    </form>
+                </div>
+                <x-front.notifications-menu />
                 <div class="hidden sm:flex sm:items-center sm:ms-6">
                     <x-dropdown align="right" width="48">
                         <x-slot name="trigger">
@@ -55,19 +68,7 @@
                         </x-slot>
                     </x-dropdown>
                 </div>
-                <div>
-                    <form action="{{route('currency.store')}}" method="post">
-                        @csrf
-                        <select style="border: none;" name="currency_code" onchange="this.form.submit()">
-                            <option value="USD" @selected('USD'==session('currency_code'))>$ USD</option>
-                            <option value="EUR" @selected('EUR'==session('currency_code'))>€ EURO</option>
-                            <option value="ILS" @selected('ILS'==session('currency_code'))>$ ILS</option>
-                            <option value="JOD" @selected('JOD'==session('currency_code'))>₹ JOD</option>
-                            <option value="SAR" @selected('SAR'==session('currency_code'))>¥ SAR</option>
-                            <option value="QAR" @selected('QAR'==session('currency_code'))>৳ QAR</option>
-                        </select>
-                    </form>
-                </div>
+
             </div>
             @else
             <nav class="flex items-center justify-end gap-4">
@@ -139,3 +140,4 @@
         </div>
     </div>
 </nav>
+

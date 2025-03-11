@@ -11,38 +11,38 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::post('currency', [CurrencyConverterController::class, 'store'])
+    ->name('currency.store');
 
 Route::middleware('auth')->group(function () {
+
+    
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-    
+
+
+
     Route::resource('/itineraries', ItinerariesController::class);
-    
-    Route::resource('/itineraries/{itinerary}/destinations', DestinationsController::class);
+    Route::post('/itineraries/{itinerary}/collaborate', [ItinerariesController::class, 'collaborate'])
+        ->name('itineraries.collaborate');
+    Route::post('/itineraries/{itinerary}/leave', [ItinerariesController::class, 'leave'])
+        ->name('itineraries.leave');
 
+
+
+    Route::resource('/itineraries/{itinerary}/destinations', DestinationsController::class)
+        ->except(['store']);
+
+    Route::post('/destinations', [DestinationsController::class, 'store'])
+        ->name('destinations.store');
 });
-
-
-Route::post('currency', [CurrencyConverterController::class, 'store'])
-        ->name('currency.store');
 
 
 Route::get('auth/{provider}/redirect', [SocialLoginController::class, 'redirect'])
     ->name('auth.socilaite.redirect');
 Route::get('auth/{provider}/callback', [SocialLoginController::class, 'callback'])
     ->name('auth.socilaite.callback');
-
-
-
-
-
-
-
-
-
-
-
 
 
 

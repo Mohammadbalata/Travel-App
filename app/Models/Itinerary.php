@@ -21,13 +21,21 @@ class Itinerary extends Model
     ];
 
 
-    public function user()
+    public function users()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsToMany(User::class, 'user_itinerary')
+        ->using(UserItinerary::class);
     }
+
     public function getDurationAttribute()
     {
         return $this->start_date->diffInDays($this->end_date);
+    }
+
+    public function getCreatorAttribute()
+    {
+        $user =  User::findOrFail($this->user_id);
+        return $user->name;
     }
 
     public function destinations(){

@@ -16,24 +16,28 @@ class HomePageService
 
     public function index($request)
     {
-        $itineraries = [];
-        $destinations = [];
-
+       
         $user = $request->user();
         $filter = request()->input('filter');
 
-       
+        $itineraries = [];
+        $destinations = [];
+        $otherUsersItineraries = $this->itineraryRepository->getOtherUsersItineraries($user);
+
+
         if (!$filter && $user) {
             $filter = $this->userRepository->getUserTravelPreferences($user);
         }
-        
-        if ($filter){
+
+        if ($filter) {
             $destinations = $this->openStreetMapService->searchDestination($filter);
         }
 
         if ($user) {
-            $itineraries = $this->itineraryRepository->getUserItineraries($user);
+            $userItineraries = $this->itineraryRepository->getUserItineraries($user);
+            $collaboratedItineraries = $this->itineraryRepository->getCollaboratedItineraries($user);
+            $itineraries = $userItineraries->merge($collaboratedItineraries)->unique('id');
         }
-        return view('home', compact('destinations','itineraries'));
+        return view('home', compact('destinations', 'itineraries', 'otherUsersItineraries'));
     }
 }

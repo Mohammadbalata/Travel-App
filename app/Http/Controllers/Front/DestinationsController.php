@@ -37,7 +37,6 @@ class DestinationsController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(DestinationRequest $request)
-    
     {
         return $this->destinationService->store($request);
     }

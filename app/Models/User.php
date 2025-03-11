@@ -57,8 +57,10 @@ class User extends Authenticatable
         return $this->hasMany(Review::class);
     }
 
-    public function itineraries(){
-        return $this->hasMany(Itinerary::class);
+    public function itineraries()
+    {
+        return $this->belongsToMany(Itinerary::class, 'user_itinerary')
+            ->using(UserItinerary::class);
     }
 
     public function setProviderTokenAttribute($value)

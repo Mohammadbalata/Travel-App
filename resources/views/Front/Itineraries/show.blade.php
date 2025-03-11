@@ -35,7 +35,7 @@
                 <p class="card-text"><strong>Start Date:</strong> {{ $itinerary->start_date->format('Y-m-d') }}</p>
                 <p class="card-text"><strong>End Date:</strong> {{ $itinerary->end_date->format('Y-m-d') }}</p>
                 <p class="card-text"><strong>Duration:</strong> {{ $itinerary->duration }} days</p>
-                <p class="card-text"><strong>Created By:</strong> {{ $itinerary->user->name }}</p> <!-- Assuming creator is a User model -->
+                <p class="card-text"><strong>Created By:</strong> {{ $itinerary->creator }}</p>
             </div>
         </div>
 
