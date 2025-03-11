@@ -46,7 +46,27 @@
                 </div>
             @endif
         </div>
+        <div>
+            <x-input-label :value="__('Select Your Travel Interests')" />
 
+            @php
+                $interests = ['Beaches', 'Mountains', 'City Life', 'History & Culture', 'Adventure', 'Food & Cuisine', 'Wildlife', 'Luxury'];
+                $selectedInterests = json_decode($user->travel_preferences, true) ?? [];
+            @endphp
+
+            <div class="mt-2 space-y-2">
+                @foreach ($interests as $interest)
+                    <label class="flex items-center">
+                        <input type="checkbox" name="travel_preferences[]" value="{{ $interest }}"
+                               class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500"
+                               @if(in_array($interest, $selectedInterests)) checked @endif>
+                        <span class="ml-2 text-gray-700">{{ $interest }}</span>
+                    </label>
+                @endforeach
+            </div>
+
+            <x-input-error class="mt-2" :messages="$errors->get('travel_preferences')" />
+        </div>
         <div class="flex items-center gap-4">
             <x-primary-button>{{ __('Save') }}</x-primary-button>
 

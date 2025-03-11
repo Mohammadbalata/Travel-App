@@ -22,6 +22,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'travel_preferences',
         'provider',
         'provider_id',
         'provider_token',
@@ -49,6 +50,17 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function reviews()
+    {
+        return $this->hasMany(Review::class);
+    }
+
+    public function itineraries()
+    {
+        return $this->belongsToMany(Itinerary::class, 'user_itinerary')
+            ->using(UserItinerary::class);
     }
 
     public function setProviderTokenAttribute($value)

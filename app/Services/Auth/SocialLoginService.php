@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services;
+namespace App\Services\Auth;
 
 use App\Repositories\UserRepository;
 use Laravel\Socialite\Facades\Socialite;
@@ -11,7 +11,6 @@ class SocialLoginService
 {
     public function __construct(protected UserRepository $userRepository)
     {
-        $this->userRepository = $userRepository;
     }
 
     public function redirect($provider)

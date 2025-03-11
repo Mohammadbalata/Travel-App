@@ -14,12 +14,8 @@ return new class extends Migration
         Schema::create('destinations', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->text('description');
-            $table->string('region')->nullable(); 
-            $table->decimal('lat', 10, 8);
-            $table->decimal('lng', 11, 8);
-            $table->json('interests')->nullable();
-            $table->string('image_url')->nullable();
+            $table->string('lat');
+            $table->string('lng');
             $table->timestamps();
         });
     }

@@ -3,12 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Models\User;
-use App\Services\SocialLoginService;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
-use Laravel\Socialite\Facades\Socialite;
-use Illuminate\Support\Str;
+use App\Services\Auth\SocialLoginService;
 use Throwable;
 
 class SocialLoginController extends Controller

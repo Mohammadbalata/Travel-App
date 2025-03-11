@@ -42,10 +42,22 @@ return [
         'api_key' => env('GOOGLE_API_KEY'),
     ],
 
-    'facebook' => [
-        'client_id' => env('FACEBOOK_CLIENT_ID'),
-        'client_secret' => env('FACEBOOK_CLIENT_SECRET'),
-        'redirect' => env('APP_URL') . '/auth/facebook/callback',
+    // 'facebook' => [
+    //     'client_id' => env('FACEBOOK_CLIENT_ID'),
+    //     'client_secret' => env('FACEBOOK_CLIENT_SECRET'),
+    //     'redirect' => env('APP_URL') . '/auth/facebook/callback',
+    // ],
+
+    'unsplash' => [
+        'api_key' => env('UNSPLASH_API_KEY'),
+    ],
+
+    'openweathermap' => [
+        'api_key' => env('OPENWEATHERMAP_API_KEY'),
+    ],
+
+    'exchangerates' => [
+        'api_key' => env('EXCHANGERATESAPI_KEY'),
     ],
 
 ];
