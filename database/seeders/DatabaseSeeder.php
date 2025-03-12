@@ -23,7 +23,10 @@ class DatabaseSeeder extends Seeder
         // ]);
 
         // Destination::factory()->count(20)->create();
-        Review::factory()->count(10)->create();
+        // Review::factory()->count(10)->create();
+
+        // \App\Models\Admin::factory(3)->create();
+
        
     }
 }
