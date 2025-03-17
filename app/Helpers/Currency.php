@@ -13,7 +13,7 @@ class Currency
         return static::format(...$params);
     }
 
-    public static function format($amount, $toCurrency = null)
+    public static function convert($amount, $toCurrency = null)
     {
         $baseCurrency = config('app.currency', 'EUR');
 
@@ -26,7 +26,14 @@ class Currency
             $amount *= $rates[$toCurrency];
         }
 
+        return round($amount, 2);
+    }
+
+    public static function format($amount)
+    {
+        $toCurrency = Session::get('currency_code', 'EUR');
+        $n = Self::convert($amount);
         $formatter = new NumberFormatter(config('app.locale'), NumberFormatter::CURRENCY);
-        return $formatter->formatCurrency($amount, $toCurrency);
+        return $formatter->formatCurrency($n, $toCurrency);
     }
 }

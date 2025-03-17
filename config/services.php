@@ -60,4 +60,10 @@ return [
         'api_key' => env('EXCHANGERATESAPI_KEY'),
     ],
 
+    'stripe' =>[
+        'publishable_key' => env('STRIP_PUBLISHABLE_KEY'),
+        'secret_key' => env('STRIP_SECRET_KEY'),
+        'webhook_secret' => env('STRIP_WEBHOOK_SECRET'),
+    ]
+
 ];

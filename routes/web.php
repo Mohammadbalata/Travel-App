@@ -5,6 +5,7 @@ use App\Http\Controllers\Currency\CurrencyConverterController;
 use App\Http\Controllers\Front\DestinationsController;
 use App\Http\Controllers\Front\HomeController;
 use App\Http\Controllers\Front\ItinerariesController;
+use App\Http\Controllers\Payment\PaymentController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -16,7 +17,7 @@ Route::post('currency', [CurrencyConverterController::class, 'store'])
 
 Route::middleware('auth:web')->group(function () {
 
-    
+
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
@@ -44,7 +45,9 @@ Route::get('auth/{provider}/redirect', [SocialLoginController::class, 'redirect'
 Route::get('auth/{provider}/callback', [SocialLoginController::class, 'callback'])
     ->name('auth.socilaite.callback');
 
-
-
+Route::post('/checkout', [PaymentController::class, 'handlePayment'])->name('payment');
+Route::get('/success', [PaymentController::class, 'success'])->name('payment.success');
+Route::get('/cancel', [PaymentController::class, 'cancel'])->name('payment.cancel');
+Route::post('/webhook', [PaymentController::class, 'webhook'])->name('payment.webhook');
 
 require __DIR__ . '/dashboard.php';

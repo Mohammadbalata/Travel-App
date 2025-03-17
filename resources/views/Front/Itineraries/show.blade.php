@@ -1,9 +1,20 @@
 <x-app-layout>
     <div class="container">
-        <p class="my-4 text-2xl">{{ $itinerary->name }}</p>
+        <div class="flex justify-between items-center">
+
+            <p class="my-4 text-2xl">{{ $itinerary->name }}</p>
+            <div>
+                <form action="{{route('payment')}}" method="POST">
+                    @csrf
+                    <input type="hidden" name="amount" value="{{ $itinerary->budget }}">
+                    <input type="hidden" name="itinerary_id" value="{{ $itinerary->id }}">
+                    <button class="btn btn-primary btn-sm">Pay Now</button>
+                </form>
+            </div>
+        </div>
         <!-- Social Sharing Buttons -->
         <div class="card mt-4">
-            <div class="card-body">
+            <div class="card-body ">
 
                 <div class="d-flex gap-2">
                     <!-- Facebook -->
@@ -26,6 +37,8 @@
                         <i class="fab fa-whatsapp"></i> WhatsApp
                     </a>
                 </div>
+
+
             </div>
         </div>
         <!-- Itinerary Details -->

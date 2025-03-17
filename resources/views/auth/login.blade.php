@@ -41,7 +41,7 @@
         </div>
         
 
-        <a href="admin/login">Login As Admin</a>
+        <a href="{{url('admin/login')}}">Login As Admin</a>
         
         <div class="flex items-center justify-end mt-4">
             @if (Route::has('password.request'))
