@@ -2,6 +2,7 @@
 
 namespace App\Services\Payment;
 
+use App\DTOs\PaymentDTO;
 use App\Enums\PaymentStausEnum;
 use App\Helpers\Currency;
 use App\Repositories\PaymentRepository;
@@ -34,14 +35,15 @@ class PaymentService
 
         $session = $this->createCheckoutSession($amount, $currency);
 
-        $payment = $this->paymentRepository->creatPayment(
+        $paymentData = new PaymentDTO(
             Auth::id(),
-            $amount,
             $itinerary_id,
             $session->id,
             $amount,
             $currency,
         );
+
+        $payment = $this->paymentRepository->creatPayment($paymentData->toArray());
 
         return redirect($session->url);
     }
