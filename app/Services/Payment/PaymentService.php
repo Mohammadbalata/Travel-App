@@ -25,27 +25,31 @@ class PaymentService
     public function handlePayment($request)
     {
         $request->validate([
-            'amount' => 'required',
+            'amount' => 'required|numeric|min:0.01',
             'itinerary_id' => 'required|exists:itineraries,id',
         ]);
 
-        $amount = Currency::convert($request->input('amount'));
-        $currency = FacadesSession::get('currency_code', 'EUR');
-        $itinerary_id = $request->input('itinerary_id');
+        try {
+            $amount = Currency::convert($request->input('amount'));
+            $currency = FacadesSession::get('currency_code', 'EUR');
+            $itinerary_id = $request->input('itinerary_id');
 
-        $session = $this->createCheckoutSession($amount, $currency);
+            $session = $this->createCheckoutSession($amount, $currency);
 
-        $paymentData = new PaymentDTO(
-            Auth::id(),
-            $itinerary_id,
-            $session->id,
-            $amount,
-            $currency,
-        );
+            $paymentData = new PaymentDTO(
+                Auth::id(),
+                $itinerary_id,
+                $session->id,
+                $amount,
+                $currency,
+            );
 
-        $payment = $this->paymentRepository->creatPayment($paymentData->toArray());
+            $payment = $this->paymentRepository->createPayment($paymentData->toArray());
 
-        return redirect($session->url);
+            return redirect($session->url);
+        } catch (\Exception $e) {
+            return back()->withErrors(['error' => 'Something went wrong']);
+        }
     }
 
 

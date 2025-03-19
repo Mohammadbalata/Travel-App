@@ -6,7 +6,7 @@ use App\Models\Payment;
 
 class PaymentRepository
 {
-    public function creatPayment(array $paymentData)
+    public function createPayment(array $paymentData)
     {
         return Payment::create($paymentData);
     }

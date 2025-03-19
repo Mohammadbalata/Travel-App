@@ -2,7 +2,19 @@
     <x-slot name="header">
         <!-- Search Form -->
         <form action="{{ URL::current() }}" method="get" class="d-flex justify-content-between gap-4 mb-4">
-            <x-form.input name="filter" placeholder="Search Destinations" class="mx-2" :value="request('filter')" />
+            <x-form.input name="place" placeholder="Country, City, Regoin" class="mx-2" :value="request('place')" />
+            <select name="interest" class="form-select flex-grow-1">
+                <option value="">Select Your Interest</option>
+                @foreach(\App\Constants\Lists::INTEREST as $category => $items)
+                <optgroup label="{{ ucfirst($category) }}">
+                    @foreach($items as $key)
+                    <option value="{{ $key }}" {{ request('interest') == $key ? 'selected' : '' }}>
+                        {{ ucfirst(str_replace('_', ' ', $key)) }}
+                    </option>
+                    @endforeach
+                </optgroup>
+                @endforeach
+            </select>
             <button type="submit" class="btn btn-dark mx-2">Search</button>
         </form>
     </x-slot>

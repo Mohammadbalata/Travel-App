@@ -18,7 +18,7 @@ class PaymentDTO
         return [
             'user_id'           => $this->userId,
             'itinerary_id'      => $this->itineraryId,
-            'payment_session_id'=> $this->sessionId,
+            'payment_session_id' => $this->sessionId,
             'amount'            => $this->amount,
             'currency'          => $this->currency,
             'payment_intent'    => $this->paymentIntent,

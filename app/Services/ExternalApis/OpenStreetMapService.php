@@ -2,19 +2,30 @@
 
 namespace App\Services\ExternalApis;
 
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 
 class OpenStreetMapService
 {
+    
     protected string $baseURL = 'https://nominatim.openstreetmap.org/';
     protected array $headers = [
         'User-Agent' => 'MyLaravelApp/1.0 (contact@example.com)'
     ];
 
-    public function searchDestination($query = ''): array
+    public function searchDestination($query): array
     {
-        return $this->makeRequest('search', ['q' => $query]);
+
+        $place = $query['place'] ?? Arr::random(\App\Constants\Lists::RANDOM_CITIES);
+        $interest = $query['interest'] ?? '';
+        $searchQuery = $place;
+
+        if ($interest) {
+            $searchQuery = "$interest+in+$place";
+        }
+
+        return $this->makeRequest('search', ['q' => $searchQuery]);
     }
 
     protected function makeRequest(string $endpoint, array $params): array
