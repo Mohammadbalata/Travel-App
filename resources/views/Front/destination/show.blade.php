@@ -24,7 +24,7 @@
                 @else
                 <p class="text-gray-600 mt-4">Forecast data not available.</p>
                 @endif
-            </div>
+            </div> 
 
             <!-- Images Section -->
             <div class="mt-6">

@@ -2,14 +2,13 @@
 
 namespace App\Services\Front;
 
+use App\Facades\Location;
 use App\Repositories\ItineraryRepository;
 use App\Repositories\UserRepository;
-use App\Services\ExternalApis\OpenStreetMapService;
 
 class HomePageService
 {
     public function __construct(
-        protected OpenStreetMapService $openStreetMapService,
         protected ItineraryRepository $itineraryRepository,
         protected UserRepository $userRepository
     ) {}
@@ -18,7 +17,7 @@ class HomePageService
     {
         $user = $request->user();
         $filters = request()->only(['place', 'interest']);
-
+        
         $itineraries = [];
         $destinations = [];
         $otherUsersItineraries = $this->itineraryRepository->getOtherUsersItineraries($user);
@@ -33,8 +32,8 @@ class HomePageService
             $collaboratedItineraries = $this->itineraryRepository->getCollaboratedItineraries($user);
             $itineraries = $userItineraries->merge($collaboratedItineraries)->unique('id');
         }
-        
-        $destinations = $this->openStreetMapService->searchDestination($filters);
+
+        $destinations = Location::searchDestination($filters);
         return view('home', compact('destinations', 'itineraries', 'otherUsersItineraries'));
     }
 }

@@ -2,15 +2,17 @@
 
 namespace App\Http\Controllers\Currency;
 
+use App\Facades\Currency;
 use App\Http\Controllers\Controller;
 use App\Services\ExternalApis\CurrencyService;
+use App\Services\ExternalApis\CurrencyServiceAdapter;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Session;
 
 class CurrencyConverterController extends Controller
 {
-    public function __construct(protected CurrencyService $currencyService) {}
+    public function __construct(protected CurrencyServiceAdapter $currencyService) {}
 
 
     public function store(Request $request)
@@ -25,10 +27,9 @@ class CurrencyConverterController extends Controller
         
         $rate = Cache::get('currency_rate');
         if(!$rate){
-            $rate = $this->currencyService->getLatestRates();
+            $rate = Currency::getLatestRates();
             Cache::put('currency_rate', $rate['rates'], now()->addMinutes(60));
         }
-
 
         return redirect()->back();
     }

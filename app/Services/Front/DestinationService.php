@@ -2,30 +2,23 @@
 
 namespace App\Services\Front;
 
-use App\Adapters\OpenStreetMapAdapter;
-use App\Adapters\UnsplashAdapter;
-use App\Models\Destination;
+use App\Facades\Images;
+use App\Facades\Weather;
 use App\Repositories\DestinationRepository;
-use App\Services\ExternalApis\OpenStreetMapService;
-use App\Services\ExternalApis\UnsplashService;
-use App\Services\ExternalApis\WeatherService;
-use Illuminate\Support\Facades\Auth;
+use App\Services\ExternalApis\WeatherServiceAdapter;
 
 class DestinationService
 {
     public function __construct(
-        protected UnsplashAdapter $unsplashAdapter,
-        protected UnsplashService $unsplashService,
         protected DestinationRepository $destinationRepository,
-        protected WeatherService $weatherService,
+        protected WeatherServiceAdapter $weatherService,
     ) {}
     public function show($destination)
     {
-        $forecastData = $this->weatherService->getForecastByCoordinates($destination->lat,$destination->lng);
+        $forecastData = Weather::getForecastByCoordinates($destination->lat,$destination->lng);
         
-        $destinationImagesResponse = $this->unsplashService->fetchDestinationImages($destination->name);
-        $destinationImages = $this->unsplashAdapter->getImageUrls($destinationImagesResponse);
-
+        $destinationImages = Images::fetchImages($destination->name);
+        
         return view('Front.destination.show', compact('destination', 'destinationImages','forecastData'));
     }
 
