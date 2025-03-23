@@ -2,6 +2,7 @@
 
 namespace App\Notifications;
 
+use App\Models\Itinerary;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\BroadcastMessage;
@@ -11,13 +12,12 @@ use Illuminate\Notifications\Notification;
 class ItineraryCollaboratedNotification extends Notification
 {
     use Queueable;
-
     /**
      * Create a new notification instance.
      */
-    public function __construct()
+    public function __construct(protected Itinerary $itinerary)
     {
-        //
+
     }
 
     /**
@@ -45,8 +45,10 @@ class ItineraryCollaboratedNotification extends Notification
     {
         return [
             'body' => 'A new collaborator has been added to your itinerary.',
+            'url' => url('/itineraries') . '/'  . $this->itinerary->id,
         ];
     }
+
 
     /**
      * Get the array representation of the notification.

@@ -21,11 +21,13 @@ class Itinerary extends Model
     ];
 
 
-    public function users()
+    public function collaborators()
     {
         return $this->belongsToMany(User::class, 'user_itinerary')
         ->using(UserItinerary::class);
     }
+
+
 
     public function getDurationAttribute()
     {

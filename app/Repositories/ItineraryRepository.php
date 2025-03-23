@@ -22,7 +22,7 @@ class ItineraryRepository
     }
 
     public function getCollaboratedItineraries($user){
-        return Itinerary::orWhereHas('users', function ($query) use ($user) {
+        return Itinerary::WhereHas('collaborators', function ($query) use ($user) {
             $query->where('user_id', $user->id);
         })->get();
     }
@@ -52,7 +52,7 @@ class ItineraryRepository
         if (!$user) {
             return Itinerary::all();
         }
-        return Itinerary::where('user_id', '!=', $user->id)->whereDoesntHave('users', function ($query) use ($user) {
+        return Itinerary::where('user_id', '!=', $user->id)->whereDoesntHave('collaborators', function ($query) use ($user) {
             $query->where('user_id', $user->id);
         })->get();
     }

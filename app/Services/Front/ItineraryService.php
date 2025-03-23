@@ -78,8 +78,8 @@ class ItineraryService
     public function collaborate($itinerary)
     {
         $user = Auth::user();
-        if ($user && !$itinerary->users()->where('user_id', $user->id)->exists()) {
-            $itinerary->users()->attach($user);
+        if ($user && !$itinerary->collaborators()->where('user_id', $user->id)->exists()) {
+            $itinerary->collaborators()->attach($user);
             event(new ItineraryCollaborated($itinerary));
         }
         return redirect()->route('itineraries.show', $itinerary->id);
@@ -87,8 +87,8 @@ class ItineraryService
 
     public function leave($itinerary){
         $user = Auth::user();
-        if($user && $itinerary->users()->where('user_id', $user->id)->exists()){
-            $itinerary->users()->detach($user);
+        if($user && $itinerary->collaborators()->where('user_id', $user->id)->exists()){
+            $itinerary->collaborators()->detach($user);
         }
         return redirect()->route('itineraries.show', $itinerary->id);
     }

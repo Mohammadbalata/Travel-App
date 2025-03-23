@@ -25,6 +25,6 @@ class SendItineraryCollaboratedNotification
     {
         $itinerary = $event->itinerary;
         $user = User::findOrFail($itinerary->user_id);
-        $user->notify(new ItineraryCollaboratedNotification());
+        $user->notify(new ItineraryCollaboratedNotification($itinerary));
     }
 }

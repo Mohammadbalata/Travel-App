@@ -10,6 +10,7 @@ use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcastNow;
 use Illuminate\Foundation\Events\Dispatchable;
+use Illuminate\Notifications\DatabaseNotification;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Log;
 
@@ -47,8 +48,10 @@ class ItineraryCollaborated implements ShouldBroadcastNow
 
     public function broadcastWith()
     {
+
         return [
             'body' => 'A new collaborator has been added to your itinerary.',
+            'url' => url('/itineraries') . '/'  . $this->itinerary->id,
         ];
     }
 }
