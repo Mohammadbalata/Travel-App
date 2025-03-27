@@ -11,6 +11,7 @@ class SocialLoginService
 {
     public function __construct(protected UserRepository $userRepository)
     {
+        
     }
 
     public function redirect($provider)

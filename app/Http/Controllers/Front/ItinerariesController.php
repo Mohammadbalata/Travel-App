@@ -42,6 +42,7 @@ class ItinerariesController extends Controller
      * Display the specified resource.
      */
     public function show(Itinerary $itinerary) {
+
         return $this->itineraryService->show($itinerary);
     }
 
